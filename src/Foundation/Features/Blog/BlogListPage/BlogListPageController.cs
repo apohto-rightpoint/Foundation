@@ -92,7 +92,7 @@ namespace Foundation.Features.Blog.BlogListPage
 
             return PartialView("Preview", model);
         }
-        
+
         #endregion
     }
 }
