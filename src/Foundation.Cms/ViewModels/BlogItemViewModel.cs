@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace Foundation.Cms.ViewModels
 {
-    public class BlogItemPageModel : ContentViewModel<BlogItemPage>
+    public class BlogItemViewModel : ContentViewModel<BlogItemPage>
     {
-        public BlogItemPageModel(BlogItemPage currentPage) : base(currentPage) { }
+        public BlogItemViewModel(BlogItemPage currentPage) : base(currentPage) { }
 
         public IEnumerable<TagItem> Tags { get; set; }
         public string PreviewText { get; set; }

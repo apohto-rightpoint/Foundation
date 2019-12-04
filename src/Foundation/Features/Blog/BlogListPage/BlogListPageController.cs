@@ -79,7 +79,7 @@ namespace Foundation.Features.Blog.BlogListPage
             var pd = (BlogItemPage)currentPage;
             var previewTextLength = 200;
 
-            var model = new BlogItemPageModel(pd)
+            var model = new BlogItemViewModel(pd)
             {
                 Tags = _controllerService.GetTags(pd),
                 PreviewText = _controllerService.GetPreviewText(pd, previewTextLength),

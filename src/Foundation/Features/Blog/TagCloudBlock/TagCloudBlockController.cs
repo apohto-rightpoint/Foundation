@@ -40,9 +40,9 @@ namespace Foundation.Features.Blog.TagCloudBlock
             return PartialView(model);
         }
 
-        public IEnumerable<BlogItemPageModel.TagItem> GetTags(ContentReference startTagLink)
+        public IEnumerable<BlogItemViewModel.TagItem> GetTags(ContentReference startTagLink)
         {
-            var tags = new List<BlogItemPageModel.TagItem>();
+            var tags = new List<BlogItemViewModel.TagItem>();
             foreach (var item in BlogTagRepository.Instance.LoadTags())
             {
                 var cat = _categoryContentLoader.GetFirstBySegment<StandardCategory>(item.TagName); // Assumes tag name == url segment
@@ -53,7 +53,7 @@ namespace Foundation.Features.Blog.TagCloudBlock
                     url = _blogTagFactory.GetTagUrl(_contentLoader.Get<PageData>(startTagLink.ToPageReference()), cat.ContentLink);
                 }
 
-                tags.Add(new BlogItemPageModel.TagItem() { Count = item.Count, Title = item.DisplayName, Weight = item.Weight, Url = url });
+                tags.Add(new BlogItemViewModel.TagItem() { Count = item.Count, Title = item.DisplayName, Weight = item.Weight, Url = url });
             }
             return tags;
         }
