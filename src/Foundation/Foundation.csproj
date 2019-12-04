@@ -919,8 +919,6 @@
     <Compile Include="Features\Search\Category\CategoryPartialController.cs" />
     <Compile Include="Features\Search\ProductSearchBlock\ProductSearchBlockController.cs" />
     <Compile Include="Features\Search\Search\SearchController.cs" />
-    <Compile Include="Features\Setup\SetupController.cs" />
-    <Compile Include="Features\Setup\SetupViewModel.cs" />
     <Compile Include="Features\MyAccount\IdentityControllerBase.cs" />
     <Compile Include="Features\Stores\StorePageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -1521,7 +1519,6 @@
     <Content Include="Features\Home\Index.cshtml" />
     <Content Include="Features\Shared\Foundation\_Layout.cshtml" />
     <Content Include="Features\_viewstart.cshtml" />
-    <Content Include="Features\Setup\Index.cshtml" />
     <Content Include="Features\Shared\Foundation\_Grid.cshtml" />
     <Content Include="Features\Shared\Foundation\_Pager.cshtml" />
     <Content Include="Features\Shared\Foundation\Header\_Header.cshtml" />
