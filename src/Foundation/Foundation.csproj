@@ -869,6 +869,7 @@
     <Compile Include="Features\Locations\LocationItemPage\LocationItemPageController.cs" />
     <Compile Include="Features\Locations\LocationItemPage\LocationItemPageControllerService.cs" />
     <Compile Include="Features\Locations\LocationListPage\LocationListPageController.cs" />
+    <Compile Include="Features\Locations\LocationListPage\LocationListPageControllerService.cs" />
     <Compile Include="Features\Locations\TagPage\TagPageController.cs" />
     <Compile Include="Features\Header\CurrencyController.cs" />
     <Compile Include="Features\Header\LanguageController.cs" />
