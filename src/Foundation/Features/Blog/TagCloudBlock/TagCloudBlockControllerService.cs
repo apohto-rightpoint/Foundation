@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using EPiServer;
+﻿using EPiServer;
 using EPiServer.Core;
 using Foundation.Cms;
 using Foundation.Cms.Categories;
 using Foundation.Cms.ViewModels;
 using Geta.EpiCategories;
+using System;
+using System.Collections.Generic;
 
 namespace Foundation.Features.Blog.TagCloudBlock
 {

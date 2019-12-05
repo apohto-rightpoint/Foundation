@@ -1,15 +1,11 @@
-﻿using System;
-using EPiServer;
-using EPiServer.Core;
+﻿using EPiServer;
 using EPiServer.DataAbstraction;
 using EPiServer.Framework.DataAnnotations;
 using EPiServer.Web.Mvc;
 using Foundation.Cms;
-using Foundation.Cms.Categories;
-using Foundation.Cms.ViewModels;
 using Foundation.Cms.ViewModels.Blocks;
 using Geta.EpiCategories;
-using System.Collections.Generic;
+using System;
 using System.Web.Mvc;
 
 namespace Foundation.Features.Blog.TagCloudBlock

@@ -867,6 +867,7 @@
     <Compile Include="Features\Events\CalendarEvent\CalendarEventController.cs" />
     <Compile Include="Features\Header\HeaderController.cs" />
     <Compile Include="Features\Locations\LocationItemPage\LocationItemPageController.cs" />
+    <Compile Include="Features\Locations\LocationItemPage\LocationItemPageControllerService.cs" />
     <Compile Include="Features\Locations\LocationListPage\LocationListPageController.cs" />
     <Compile Include="Features\Locations\TagPage\TagPageController.cs" />
     <Compile Include="Features\Header\CurrencyController.cs" />
