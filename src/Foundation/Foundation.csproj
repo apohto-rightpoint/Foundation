@@ -874,6 +874,7 @@
     <Compile Include="Features\Header\CurrencyController.cs" />
     <Compile Include="Features\Header\LanguageController.cs" />
     <Compile Include="Features\Header\MarketController.cs" />
+    <Compile Include="Features\Locations\TagPage\TagPageControllerService.cs" />
     <Compile Include="Features\Media\MediaController.cs" />
     <Compile Include="Features\MyAccount\AddressBook\AddressBookController.cs" />
     <Compile Include="Features\MyAccount\ResetPassword\ResetPasswordController.cs" />
