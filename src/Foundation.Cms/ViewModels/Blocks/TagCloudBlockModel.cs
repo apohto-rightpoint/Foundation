@@ -9,7 +9,7 @@ namespace Foundation.Cms.ViewModels.Blocks
 
         public string Heading { get; set; }
 
-        public IEnumerable<BlogItemPageModel.TagItem> Tags { get; set; }
+        public IEnumerable<BlogItemViewModel.TagItem> Tags { get; set; }
 
     }
 }

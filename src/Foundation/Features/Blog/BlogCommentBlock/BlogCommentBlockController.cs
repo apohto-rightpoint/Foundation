@@ -23,6 +23,7 @@ namespace Foundation.Features.Blog.BlogCommentBlock
     {
         private readonly IBlogCommentRepository _commentRepository;
         private readonly IPageRepository _pageRepository;
+        private readonly BlogCommentBlockControllerService _controllerService;
         protected readonly IPageRouteHelper _pageRouteHelper;
         private const string MessageKey = "BlogCommentBlock";
         private const string SubmitSuccessMessage = "Your comment was submitted successfully!";
@@ -36,11 +37,15 @@ namespace Foundation.Features.Blog.BlogCommentBlock
         /// <summary>
         /// Constructor
         /// </summary>
-        public BlogCommentBlockController(IBlogCommentRepository commentRepository, IPageRepository pageRepository, IPageRouteHelper pageRouteHelper)
+        public BlogCommentBlockController(IBlogCommentRepository commentRepository, 
+            IPageRepository pageRepository, 
+            IPageRouteHelper pageRouteHelper,
+            BlogCommentBlockControllerService controllerService)
         {
             _commentRepository = commentRepository;
             _pageRepository = pageRepository;
             _pageRouteHelper = pageRouteHelper;
+            _controllerService = controllerService ?? throw new ArgumentNullException(nameof(controllerService));
         }
 
         /// <summary>
@@ -64,39 +69,9 @@ namespace Foundation.Features.Blog.BlogCommentBlock
         /// <returns>The action's result.</returns>
         public ActionResult GetComment(PagingInfo pagingInfo)
         {
-            var pageId = pagingInfo.PageId;
-            var pageIndex = pagingInfo.PageNumber;
-            var pageSize = pagingInfo.PageSize;
+            var model = _controllerService.GetViewModel(pagingInfo);
 
-            var pageReference = new PageReference(pageId);
-            var pageContentGuid = _pageRepository.GetPageId(pageReference);
-
-            // Create a comments block view model to fill the frontend block view
-            var blockViewModel = new BlogCommentsBlockViewModel(pageReference);
-
-            // Try to get recent comments
-            try
-            {
-                var blogComments = _commentRepository.Get(
-                    new PageCommentFilter
-                    {
-                        Target = pageContentGuid.ToString(),
-                        PageSize = pageSize,
-                        PageOffset = pageIndex - 1
-                    },
-                    out var totalComments
-                );
-
-                blockViewModel.Comments = blogComments;
-                blockViewModel.PagingInfo = pagingInfo;
-                blockViewModel.PagingInfo.TotalRecord = (int)totalComments;
-            }
-            catch (Exception ex)
-            {
-                blockViewModel.Messages.Add(ex.Message);
-            }
-
-            return PartialView("~/Features/Blog/BlogCommentBlock/Index.cshtml", blockViewModel);
+            return PartialView("~/Features/Blog/BlogCommentBlock/Index.cshtml", model);
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\packages\EntityFramework.6.3.0\build\EntityFramework.props" Condition="Exists('..\..\packages\EntityFramework.6.3.0\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -851,10 +851,13 @@
     <Compile Include="Features\Blocks\SocialBlockController.cs" />
     <Compile Include="Features\Blocks\SubscriptionBlockController.cs" />
     <Compile Include="Features\Blog\BlogCommentBlock\BlogCommentBlockController.cs" />
+    <Compile Include="Features\Blog\BlogCommentBlock\BlogCommentBlockControllerService.cs" />
     <Compile Include="Features\Blog\BlogItem\BlogItemController.cs" />
+    <Compile Include="Features\Blog\BlogItem\BlogItemControllerService.cs" />
     <Compile Include="Features\Blog\BlogListPage\BlogListPageController.cs" />
     <Compile Include="Features\Blog\BlogListPage\BlogListPageControllerService.cs" />
     <Compile Include="Features\Blog\TagCloudBlock\TagCloudBlockController.cs" />
+    <Compile Include="Features\Blog\TagCloudBlock\TagCloudBlockControllerService.cs" />
     <Compile Include="Features\CatalogContent\CatalogContentControllerBase.cs" />
     <Compile Include="Features\CatalogContent\Variation\VariationController.cs" />
     <Compile Include="Features\Category\StandardCategoryController.cs" />
@@ -864,13 +867,17 @@
     <Compile Include="Features\Events\CalendarEvent\CalendarEventController.cs" />
     <Compile Include="Features\Header\HeaderController.cs" />
     <Compile Include="Features\Locations\LocationItemPage\LocationItemPageController.cs" />
+    <Compile Include="Features\Locations\LocationItemPage\LocationItemPageControllerService.cs" />
     <Compile Include="Features\Locations\LocationListPage\LocationListPageController.cs" />
+    <Compile Include="Features\Locations\LocationListPage\LocationListPageControllerService.cs" />
     <Compile Include="Features\Locations\TagPage\TagPageController.cs" />
     <Compile Include="Features\Header\CurrencyController.cs" />
     <Compile Include="Features\Header\LanguageController.cs" />
     <Compile Include="Features\Header\MarketController.cs" />
+    <Compile Include="Features\Locations\TagPage\TagPageControllerService.cs" />
     <Compile Include="Features\Media\MediaController.cs" />
     <Compile Include="Features\MyAccount\AddressBook\AddressBookController.cs" />
+    <Compile Include="Features\MyAccount\OrderDetails\OrderDetailsControllerService.cs" />
     <Compile Include="Features\MyAccount\ResetPassword\ResetPasswordController.cs" />
     <Compile Include="Features\MyOrganization\B2BNavigationController.cs" />
     <Compile Include="Features\MyAccount\Bookmarks\BookmarksController.cs" />

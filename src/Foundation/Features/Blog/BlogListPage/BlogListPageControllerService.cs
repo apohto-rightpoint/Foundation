@@ -95,20 +95,20 @@ namespace Foundation.Features.Blog.BlogListPage
             return model;
         }
 
-        public IEnumerable<BlogItemPageModel.TagItem> GetTags(BlogItemPage currentPage)
+        public IEnumerable<BlogItemViewModel.TagItem> GetTags(BlogItemPage currentPage)
         {
             if (currentPage.Categories != null)
             {
                 var allCategories = _contentLoader.GetItems(currentPage.Categories, CultureInfo.CurrentUICulture);
                 return allCategories.
-                    Select(cat => new BlogItemPageModel.TagItem()
+                    Select(cat => new BlogItemViewModel.TagItem()
                     {
                         Title = cat.Name,
                         Url = _blogTagFactory.GetTagUrl(currentPage, cat.ContentLink),
                         DisplayName = (cat as StandardCategory)?.Description,
                     }).ToList();
             }
-            return new List<BlogItemPageModel.TagItem>();
+            return new List<BlogItemViewModel.TagItem>();
         }
 
         public string GetPreviewText(BlogItemPage page, int previewTextLength)

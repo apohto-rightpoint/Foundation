@@ -1,14 +1,6 @@
-﻿using EPiServer;
-using EPiServer.Core;
-using EPiServer.Find;
-using EPiServer.Find.Cms;
-using EPiServer.Find.Framework;
-using EPiServer.Personalization;
-using EPiServer.Web.Mvc;
+﻿using EPiServer.Web.Mvc;
 using Foundation.Cms.Personalization;
-using Foundation.Find.Cms;
-using Foundation.Find.Cms.Locations;
-using Foundation.Find.Cms.Locations.ViewModels;
+using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 
@@ -16,67 +8,23 @@ namespace Foundation.Features.Locations.LocationListPage
 {
     public class LocationListPageController : PageController<Find.Cms.Models.Pages.LocationListPage>
     {
-        private readonly IContentLoader _contentLoader;
+        private readonly LocationListPageControllerService _controllerService;
         private readonly ICmsTrackingService _trackingService;
 
-        public LocationListPageController(IContentLoader contentLoader,
+        public LocationListPageController(LocationListPageControllerService controllerService,
             ICmsTrackingService trackingService)
         {
-            _contentLoader = contentLoader;
+            _controllerService = controllerService ?? throw new ArgumentNullException(nameof(controllerService));
             _trackingService = trackingService;
         }
 
         public async Task<ActionResult> Index(Find.Cms.Models.Pages.LocationListPage currentPage)
         {
             await _trackingService.PageViewed(HttpContext, currentPage);
-            var query = SearchClient.Instance.Search<Find.Cms.Models.Pages.LocationItemPage>()
-                .PublishedInCurrentLanguage()
-                .FilterOnReadAccess();
 
-            if (currentPage.FilterArea != null)
-            {
-                foreach (var filterBlock in currentPage.FilterArea.FilteredItems)
-                {
-                    var b = _contentLoader.Get<BlockData>(filterBlock.ContentLink) as IFilterBlock;
-                    if (b != null)
-                    {
-                        query = b.AddFilter(query);
-                    }
-                }
-
-                foreach (var filterBlock in currentPage.FilterArea.FilteredItems)
-                {
-                    var b = _contentLoader.Get<BlockData>(filterBlock.ContentLink) as IFilterBlock;
-                    if (b != null)
-                    {
-                        query = b.ApplyFilter(query, Request.QueryString);
-                    }
-                }
-            }
-
-            var locations = query.OrderBy(x => x.PageName)
-                                    .Take(500)
-                                    .StaticallyCacheFor(new System.TimeSpan(0, 1, 0)).GetContentResult();
-
-            var model = new LocationListViewModel(currentPage)
-            {
-                Locations = locations,
-                MapCenter = GetMapCenter(),
-                UserLocation = GeoPosition.GetUsersLocation(),
-                QueryString = Request.QueryString
-            };
+            var model = _controllerService.GetViewModel(currentPage, Request.QueryString);
 
             return View(model);
-        }
-
-        private static GeoCoordinate GetMapCenter()
-        {
-            var userLocation = GeoPosition.GetUsersPosition();
-            if (userLocation != null)
-            {
-                return new GeoCoordinate(30, userLocation.Longitude);
-            }
-            return new GeoCoordinate(30, 0);
         }
     }
 }

@@ -22,24 +22,15 @@ namespace Foundation.Features.Blog.BlogItem
 {
     public class BlogItemController : PageController<BlogItemPage>
     {
-        private readonly BlogTagFactory _blogTagFactory;
-        private readonly CategoryRepository _categoryRepository;
-        private readonly IContentLoader _contentLoader;
-        private readonly UrlResolver _urlResolver;
         private readonly ICmsTrackingService _trackingService;
+        private readonly BlogItemControllerService _controllerService;
 
         public int PreviewTextLength { get; set; }
 
-        public BlogItemController(BlogTagFactory blogTagFactory,
-            CategoryRepository categoryRepository,
-            IContentLoader contentLoader,
-            UrlResolver urlResolver, ICmsTrackingService trackingService)
+        public BlogItemController(ICmsTrackingService trackingService, BlogItemControllerService controllerService)
         {
-            _blogTagFactory = blogTagFactory;
-            _categoryRepository = categoryRepository;
-            _contentLoader = contentLoader;
-            _urlResolver = urlResolver;
             _trackingService = trackingService;
+            _controllerService = controllerService ?? throw new ArgumentNullException(nameof(controllerService));
         }
 
         public async Task<ActionResult> Index(BlogItemPage currentPage)
@@ -47,76 +38,13 @@ namespace Foundation.Features.Blog.BlogItem
             await _trackingService.PageViewed(HttpContext, currentPage);
             PreviewTextLength = 200;
 
-            var model = new BlogItemPageModel(currentPage)
-            {
-                Category = currentPage.Category,
-                Tags = GetTags(currentPage),
-                PreviewText = GetPreviewText(currentPage),
-                MainBody = currentPage.MainBody,
-                StartPublish = currentPage.StartPublish ?? DateTime.UtcNow,
-                BreadCrumbs = GetBreadCrumb(currentPage)
-            };
+            var model = _controllerService.GetViewModel(currentPage, PreviewTextLength);
+
             var editHints = ViewData.GetEditHints<ContentViewModel<BlogItemPage>, BlogItemPage>();
             editHints.AddConnection(m => m.CurrentContent.Category, p => p.Category);
             editHints.AddConnection(m => m.CurrentContent.StartPublish, p => p.StartPublish);
-
-
+            
             return View(model);
-        }
-
-        public IEnumerable<BlogItemPageModel.TagItem> GetTags(BlogItemPage currentPage)
-        {
-            if (currentPage.Categories != null)
-            {
-                var allCategories = _contentLoader.GetItems(currentPage.Categories, CultureInfo.CurrentUICulture);
-                return allCategories.
-                    Select(cat => new BlogItemPageModel.TagItem()
-                    {
-                        Title = cat.Name,
-                        Url = _blogTagFactory.GetTagUrl(currentPage, cat.ContentLink),
-                        DisplayName = (cat as StandardCategory)?.Description,
-                    }).ToList();
-            }
-            return new List<BlogItemPageModel.TagItem>();
-        }
-
-
-        private string GetPreviewText(BlogItemPage page)
-        {
-            if (PreviewTextLength <= 0)
-            {
-                return string.Empty;
-            }
-
-            var previewText = string.Empty;
-
-            if (page.MainBody != null)
-            {
-                previewText = page.MainBody.ToHtmlString();
-            }
-
-            if (string.IsNullOrEmpty(previewText))
-            {
-                return string.Empty;
-            }
-
-            var regexPattern = new StringBuilder(@"<span[\s\W\w]*?classid=""");
-            //regexPattern.Append(DynamicContentFactory.Instance.DynamicContentId.ToString());
-            regexPattern.Append(@"""[\s\W\w]*?</span>");
-            previewText = Regex.Replace(previewText, regexPattern.ToString(), string.Empty, RegexOptions.IgnoreCase | RegexOptions.Multiline);
-
-            return TextIndexer.StripHtml(previewText, PreviewTextLength);
-        }
-
-        private List<KeyValuePair<string, string>> GetBreadCrumb(BlogItemPage currentPage)
-        {
-            var breadCrumb = new List<KeyValuePair<string, string>>();
-            var ancestors = _contentLoader.GetAncestors(currentPage.ContentLink)
-                .Select(x => x as Cms.Pages.BlogListPage)
-                .Where(x => x != null);
-            breadCrumb = ancestors.Reverse().Select(x => new KeyValuePair<string, string>(x.MetaTitle, x.PublicUrl(_urlResolver))).ToList();
-
-            return breadCrumb;
         }
     }
 }
