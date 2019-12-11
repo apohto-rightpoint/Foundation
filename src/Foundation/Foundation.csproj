@@ -868,6 +868,7 @@
     <Compile Include="Features\Blog\TagCloudBlock\TagCloudBlockControllerService.cs" />
     <Compile Include="Features\MyAccount\OrderHistory\OrderHistoryControllerService.cs" />
     <Compile Include="Features\MyAccount\ProfilePage\ProfilePageControllerService.cs" />
+    <Compile Include="Features\MyAccount\SubscriptionDetail\SubscriptionDetailControllerService.cs" />
     <Compile Include="Infrastructure\PostClickInterceptor.cs" />
     <Compile Include="Features\CatalogContent\CatalogContentControllerBase.cs" />
     <Compile Include="Features\CatalogContent\Variation\VariationController.cs" />
