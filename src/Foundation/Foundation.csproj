@@ -878,6 +878,7 @@
     <Compile Include="Features\Media\MediaController.cs" />
     <Compile Include="Features\MyAccount\AddressBook\AddressBookController.cs" />
     <Compile Include="Features\MyAccount\OrderDetails\OrderDetailsControllerService.cs" />
+    <Compile Include="Features\MyAccount\OrdersBlock\OrdersBlockControllerService.cs" />
     <Compile Include="Features\MyAccount\ResetPassword\ResetPasswordController.cs" />
     <Compile Include="Features\MyOrganization\B2BNavigationController.cs" />
     <Compile Include="Features\MyAccount\Bookmarks\BookmarksController.cs" />
