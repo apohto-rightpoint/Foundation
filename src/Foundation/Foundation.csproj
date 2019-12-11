@@ -866,6 +866,7 @@
     <Compile Include="Features\Blog\BlogListPage\BlogListPageControllerService.cs" />
     <Compile Include="Features\Blog\TagCloudBlock\TagCloudBlockController.cs" />
     <Compile Include="Features\Blog\TagCloudBlock\TagCloudBlockControllerService.cs" />
+    <Compile Include="Features\MyAccount\MyAccountNavigationControllerService.cs" />
     <Compile Include="Features\MyAccount\OrderHistory\OrderHistoryControllerService.cs" />
     <Compile Include="Features\MyAccount\ProfilePage\ProfilePageControllerService.cs" />
     <Compile Include="Features\MyAccount\SubscriptionDetail\SubscriptionDetailControllerService.cs" />
